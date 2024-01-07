@@ -64,6 +64,7 @@ This project is open-sourced under the MIT License. See the [LICENSE](LICENSE.md
 ## Contact
 
 David Lee - david303lee@gmail.com
+[LinkedIn](https://www.linkedin.com/in/david-lee-499a4a237/)
 
 ## Acknowlegments
 
