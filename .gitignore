@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-utilities/APIinfo.js
+src/utilities/APIinfo.js
 
 # Editor directories and files
 .vscode/*

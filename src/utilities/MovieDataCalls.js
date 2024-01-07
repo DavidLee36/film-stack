@@ -4,7 +4,6 @@ import { API_KEY, OPTIONS } from "./APIinfo";
 
 const fetchMovieData = async (url) => {
     try {
-        
         const response = await fetch(url, OPTIONS);
         const data = await response.json();
         return data.results; // Return the results directly, no need for an intermediary variable

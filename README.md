@@ -57,6 +57,10 @@ Navigate to 'http://localhost:3000' (or the port provided in your terminal) in y
 
 As this project is a personal learning project/experience, contributions are not being sought at this time. However, any feedback or suggestions are welcome and greatly appreciated!
 
+## License
+
+This project is open-sourced under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+
 ## Contact
 
 David Lee - david303lee@gmail.com
