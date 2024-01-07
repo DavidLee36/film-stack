@@ -1,0 +1,102 @@
+@import url('./GlobalStyles.css');
+
+.modal-overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.modal-container {
+    background-color: var(--secondary-color);
+    padding: 1.5rem;
+    display: grid;
+    gap: 1rem;
+    grid-auto-columns: 1fr 1fr;
+    grid-template-areas: 
+        'image title'
+        'image description'
+        'providers rating'
+        'providers additional'
+    ;
+    max-width: 60%;
+    justify-items: center;
+    font-family: var(--font-family);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.modal-overlay h1 {
+    color: white;
+}
+
+.modal-rating-container {
+    grid-area: rating;
+}
+
+.modal-provider-container {
+    grid-area: providers;
+}
+
+.additional-info {
+    grid-area: additional;
+    height: fit-content;
+    align-self: last baseline !important;
+}
+
+.title-container {
+    grid-area: title;
+
+}
+
+#modal-title {
+    color: var(--text-color);
+    font-size: 40px;
+    text-shadow: var(--text-shadow);
+    margin: 0;
+}
+
+.overview-container {
+    grid-area: description;
+    color: var(--text-color);
+    font-size: 20px;
+    max-width: 100%;
+}
+
+.overview-container p {
+    color: var(--secondary-text-color);
+}
+
+.image-container {
+    grid-area: image;
+    max-height: 40vh;
+    width: 95%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.modal-backdrop {
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    object-fit: cover;
+    max-height: 100%;
+}
+
+@media (max-width: 86em) {
+    .modal-container {
+        grid-auto-columns: 1fr;
+        grid-template-areas: 
+            'title'
+            'image'
+            'description'
+            'rating'
+            'providers'
+            'additional'
+        ;
+    }
+}

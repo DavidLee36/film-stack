@@ -1,0 +1,172 @@
+@import url('./GlobalStyles.css');
+
+:root {
+    --pag-btn-margin: 6rem;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 30px;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.movie-item {
+    width: 100%;
+    cursor: pointer;
+    transition: all ease 0.3s;
+    border-radius: 5px;
+    box-shadow: 2px 2px 30px black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+    background-color: var(--primary-color);
+}
+
+.movie-item:hover {
+    transform: scale(1.02);
+    box-shadow: 2px 2px 30px var(--primary-accent-color);
+}
+
+.movie-title {
+    color: white;
+    text-shadow: var(--text-shadow);
+    letter-spacing: .07rem;
+    text-align: center;
+    font-family: var(--font-family);
+}
+
+.movie-image {
+    width: 90%;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+}
+
+.search-container {
+    display: flex;
+    width: fit-content;
+    position: relative;
+}
+
+#search {
+    background-color: #2d2d30;
+    /* Changed from transparent to Secondary Dark for a more cohesive appearance */
+    color: white;
+    width: 400px;
+    height: 2rem;
+    outline: 2px solid var(--primary-accent-color);
+    /* Reduced the outline width for subtlety */
+    border-radius: 20px;
+    padding-inline: 20px;
+    padding-block: 5px;
+    border: none;
+    font-size: 1rem;
+    /* Removed explicit border-color as it was redundant with the outline */
+}
+
+#search:active,
+#search:focus,
+#search:not(:placeholder-shown) {
+    outline: 3px solid var(--secondary-accent-color);
+    /* Changed the color to Secondary Accent and adjusted the outline width */
+    outline-offset: 1px;
+}
+
+/* X button */
+.search-container button:first-of-type {
+    z-index: 250;
+    position: absolute;
+    right: 4rem;
+    color: var(--secondary-accent-color);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    text-shadow: var(--text-shadow);
+}
+
+/* search button (magnifiying glass) */
+.search-container button:last-of-type {
+    color: var(--secondary-accent-color);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    text-shadow: var(--text-shadow);
+    margin-left: 0.5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* border-bottom: 2px solid white; */
+    font-family: var(--font-family);
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-inline: 1.5rem;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo h1 {
+    color: var(--text-color);
+    width: fit-content;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.logo img {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    -webkit-filter: drop-shadow(5px 5px 5px #000000);
+    filter: drop-shadow(5px 5px 5px var(--primary-accent-color));
+    transition: all ease 0.3s;
+    object-fit: cover;
+}
+
+.logo img:hover {
+    transform: scale(1.03);
+}
+
+#none-found {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    text-shadow: var(--text-shadow);
+    font-size: 2rem;
+    margin-top: 10%;
+}
+
+.pagination {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.pag-prev {
+    margin-left: var(--pag-btn-margin);
+}
+
+.pag-next {
+    float: right;
+    margin-right: var(--pag-btn-margin);
+}

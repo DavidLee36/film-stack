@@ -1,0 +1,72 @@
+[
+    {
+        "provider_id": 2,
+        "provider_name": "Apple TV",
+        "url": "https://tv.apple.com"
+    },
+    {
+        "provider_id": 10,
+        "provider_name": "Amazon Video",
+        "url": "https://www.amazon.com/Amazon-Video/b/?&node=2858778011"
+    },
+    {
+        "provider_id": 3,
+        "provider_name": "Google Play Movies",
+        "url": "https://play.google.com/store/movies?hl=en_US&gl=US&pli=1"
+    },
+    {
+        "provider_id": 192,
+        "provider_name": "YouTube",
+        "url": "https://www.youtube.com/feed/storefront"
+    },
+    {
+        "provider_id": 1899,
+        "provider_name": "Max",
+        "url": "https://www.max.com"
+    },
+    {
+        "provider_id": 486,
+        "provider_name": "Spectrun On Demand",
+        "url": "https://ondemand.spectrum.net/movies/"
+    },
+    {
+        "provider_id": 7,
+        "provider_name": "Vudu",
+        "url": "https://www.vudu.com"
+    },
+    {
+        "provider_id": 279,
+        "provider_name": "Redbox",
+        "url": "https://www.redbox.com"
+    },
+    {
+        "provider_id": 136,
+        "provider_name": "AMC On Demand",
+        "url": "https://www.amc.com/movies"
+    },
+    {
+        "provider_id": 8,
+        "provider_name": "Netflix",
+        "url": "https://www.netflix.com"
+    },
+    {
+        "provider_id": 139,
+        "provider_name": "TNT",
+        "url": "https://www.tntdrama.com"
+    },
+    {
+        "provider_id": 163,
+        "provider_name": "TBS",
+        "url": "https://www.tbs.com"
+    },
+    {
+        "provider_id": 172,
+        "provider_name": "Tru TV",
+        "url": "https://www.trutv.com"
+    },
+    {
+        "provider_id": 1853,
+        "provider_name": "Paramount Plus",
+        "url": "https://www.paramountplus.com"
+    }
+]

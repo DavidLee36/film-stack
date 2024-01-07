@@ -1,0 +1,90 @@
+@import url('./GlobalStyles.css');
+
+.additional-info-container {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    /* border: 2px solid red; */
+}
+
+.additional-info-container .heading-container {
+    display: flex;
+    height: fit-content;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow);
+    border-radius: 30px;
+}
+
+.heading-container-img {
+    display: flex;
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    height: fit-content;
+    width: 50%;
+    margin-top: 1rem;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    border-radius: 30px;
+}
+
+.main-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 66%;
+}
+
+.main-heading h1 {
+    align-items: center;
+    color: var(--text-color);
+    font-size: 40px;
+    text-shadow: var(--text-shadow);
+    font-family: var(--font-family);
+    margin-bottom: 0;
+    height: fit-content;
+    padding-inline: 4rem;
+    align-self: center;
+}
+
+.main-heading h1 span {
+    font-size: 28px;
+}
+
+.main-heading h2 {
+    color: rgb(223, 223, 223);
+    font-size: 18px;
+    text-shadow: var(--text-shadow);
+    font-family: var(--font-family);
+    margin-top: 0;
+}
+
+.main-heading p {
+    color: var(--text-color);
+    font-size: 16px;
+    text-shadow: var(--text-shadow);
+    font-family: var(--font-family);
+    margin-bottom: 0;
+    padding-inline: 1rem;
+    align-self: center;
+    margin-bottom: 2rem;
+}
+
+.heading-img-container {
+    width: 34%;
+    padding: 1rem;
+}
+
+.heading-img-container img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    object-fit: cover;
+}
