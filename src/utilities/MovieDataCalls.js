@@ -37,7 +37,7 @@ const getMoviesByParam = async(param) => {
 };
 
 const searchMovies = async(search) => {
-    const url = `${BASE_URL}search/movie?query=${search}&include_adult=false&language=en-US&page=`;
+    const url = `${BASE_URL}search/movie?query=${search}&include_adult=true&language=en-US&page=`;
 
     const movies = getMultiplePages(url)
     return(movies);
@@ -45,14 +45,16 @@ const searchMovies = async(search) => {
 
 const getWatchProviders = async(id) => {
     const url = `${BASE_URL}movie/${id}/watch/providers`;
-    return(fetchMovieData(url));
+    const data = await fetchMovieData(url);
+    const USdata = data.US;
+    return(USdata);
 }
 
 //Main method not working, call directly
 const getSingularMovie = async(id) => {
     //console.log(id)
     const url = `${BASE_URL}movie/${id}?api_key=${API_KEY}`;
-    const response = await fetch(url)
+    const response = await fetch(url);
     const data = await response.json();
     //console.log(data);
     return(data);

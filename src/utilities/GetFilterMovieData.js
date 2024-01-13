@@ -52,8 +52,7 @@ const filterMovies = (genres, date, rating, movies) => {
 //of providers that are present in 'ProviderData.json'
 const getAndFilterProviders = async (movieID) => {
     try {
-        let data = await getWatchProviders(movieID);
-        data = data.US;
+        const  data = await getWatchProviders(movieID);
 
         const allProvidersLink = data.link;
 

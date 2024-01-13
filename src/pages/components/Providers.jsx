@@ -14,7 +14,9 @@ const Providers = ({ movieID }) => {
                 setAllProvidersLink(providerReturnData.link);
             }
         }
-        fetchData();
+        if(movieID) { //Make sure movieID exists before fetching data
+            fetchData();
+        }
     }, [movieID]);
 
     const providerClick = (id) => { //Open the provider link on a new tab

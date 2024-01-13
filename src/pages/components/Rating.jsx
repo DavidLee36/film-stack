@@ -10,7 +10,9 @@ const Rating = ({ voteAverage, voteCount }) => {
     const [rating, setRating] = useState([]);
 
     useEffect(() => {
-        setRating(getStarRating(voteAverage));
+        if(voteCount) { //Make sure votes exist
+            setRating(getStarRating(voteAverage));
+        }
     }, [voteAverage, voteCount]);
 
     return (

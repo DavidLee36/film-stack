@@ -10,7 +10,7 @@ const MovieInfo = () => {
     const [releaseYear, setReleaseYear] = useState('');
 
     const setBackground = () => {
-        if(movie.backdrop_path !== null) {
+        if(movie.backdrop_path !== null && movie.backdrop_path !== undefined) {
             const container = document.querySelector('.heading-container-img');
             container.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500/${movie.backdrop_path}')`
         }
@@ -23,7 +23,6 @@ const MovieInfo = () => {
     const getMovieData = async (id) => {
         try {
             const movieInfo = await getSingularMovie(id);
-            console.log(movieInfo);
             setMovie(movieInfo);
 
             const year = movieInfo.release_date.substring(0, 4);
@@ -42,7 +41,6 @@ const MovieInfo = () => {
     const getCredits = async (id) => {
         try {
             const data = await getMovieCredits(id);
-            console.log(data)
             setCredits(data);
         } catch (error) {
             console.error('Error fetching movie credits: ', error);
@@ -66,11 +64,10 @@ const MovieInfo = () => {
     return (
         <div className='additional-info-container'>
             {movie.length === 0 && <h1>Unable to retrieve movie data please try again later</h1>}
-
             <div className="heading-container-img">
                 <div className="heading-container">
                     <div className="heading-img-container">
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="image not found" className='heading-img' />
+                        {movie.id && <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="image not found" className='heading-img' />}
                     </div>
                     <div className='main-heading'>
                         <h1>{movie.title}<span>&nbsp;({releaseYear})</span></h1>
