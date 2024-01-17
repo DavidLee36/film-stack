@@ -1,6 +1,6 @@
 import { getMoviesByParam, searchMovies, getWatchProviders } from './MovieDataCalls';
 import GenreData from './GenreData.json';
-import ProviderData from '../utilities/ProviderData.json';
+import ProviderData from './ProviderData.json';
 
 //Search{bool: call searchMovies}
 //value{string: search value OR getMoviesByParam paramm ie. 'top_rated'}
@@ -116,9 +116,18 @@ const getStarRating = (ratingTenScale) => {
     return ratingData;
 }
 
+const numToDollar = (amount) => { //Convert int to USD format ie. 1234 => $1,234
+    let USDollar = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+    return USDollar.format(amount);
+}
+
 export {
     getMovies,
     filterMovies,
     getAndFilterProviders,
-    getStarRating
+    getStarRating,
+    numToDollar
 };

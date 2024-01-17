@@ -1,0 +1,21 @@
+@import url('./GlobalStyles.css');
+
+
+.footer-container {
+    text-align: center;
+}
+
+.footer-text {
+    color: var(--text-color);
+    font-family: var(--font-family);
+    text-shadow: var(--text-shadow);
+}
+
+.footer-text a {
+    color: #db7062;
+    text-decoration: none;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}

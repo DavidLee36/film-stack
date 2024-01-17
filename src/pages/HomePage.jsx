@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getMovies, filterMovies } from '../utilities/GetFilterMovieData.js';
+import { getMovies, filterMovies } from '../utilities/UtilityFunctions.js';
 import Modal from './components/Modal.jsx';
 import MovieList from './components/MovieList.jsx';
 import GenreFilter from './components/GenreFilter.jsx';

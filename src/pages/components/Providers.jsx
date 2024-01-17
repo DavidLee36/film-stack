@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAndFilterProviders } from '../../utilities/GetFilterMovieData';
+import { getAndFilterProviders } from '../../utilities/UtilityFunctions';
 import '../../styles/ComponentStyles.css';
 
 const Providers = ({ movieID }) => {
