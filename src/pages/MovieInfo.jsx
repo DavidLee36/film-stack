@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Providers from './components/Providers';
 import Rating from './components/Rating';
-import { getMovieCredits, getSingularMovie } from '../utilities/MovieDataCalls';
+import CastSlider from './components/CastSlider';
+import { getSingularMovie } from '../utilities/MovieDataCalls';
 import '../styles/AdditionalInfo.css';
 import { numToDollar } from '../utilities/UtilityFunctions';
 import logo from '../assets/images/logo.png';
+import { BASE_IMG_URL } from '../utilities/config';
 
 const MovieInfo = () => {
     const [movie, setMovie] = useState([]);
-    const [credits, setCredits] = useState([]);
     const [releaseYear, setReleaseYear] = useState('');
     const [genres, setGenres] = useState([]);
 
@@ -18,7 +19,7 @@ const MovieInfo = () => {
     const setBackground = () => {
         if (movie.backdrop_path !== null && movie.backdrop_path !== undefined) {
             const container = document.querySelector('.heading-container-img');
-            container.style.backgroundImage = `url('https://image.tmdb.org/t/p/w500/${movie.backdrop_path}')`
+            container.style.backgroundImage = `url('${BASE_IMG_URL}${movie.backdrop_path}')`
         }
     }
 
@@ -67,19 +68,11 @@ const MovieInfo = () => {
         }
     }
 
-    const getCredits = async (id) => {
-        try {
-            const data = await getMovieCredits(id);
-            setCredits(data);
-        } catch (error) {
-            console.error('Error fetching movie credits: ', error);
-        }
-    }
+
 
     const setMovieData = async () => {
         const movieID = +window.location.hash.slice(1);
         await getMovieData(movieID);
-        await getCredits(movieID);
     }
 
 
@@ -95,13 +88,14 @@ const MovieInfo = () => {
 
 
     return (
-        <>
+        <div className='movie-info-page-wrapper'>
             <div className="home-btn-container">
                 <div className="logo" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack"  />
                     {/* <h1>Film Stack</h1> */}
                 </div>
             </div>
+
             <div className='additional-info-container'>
                 {movie.length === 0 && <h1>Unable to retrieve movie data please try again later</h1>}
 
@@ -110,7 +104,7 @@ const MovieInfo = () => {
                 <div className="heading-container-img">
                     <div className="heading-container">
                         <div className="heading-img-container">
-                            {movie.id && <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="image not found" className='heading-img' />}
+                            {movie.id && <img src={`${BASE_IMG_URL}${movie.poster_path}`} alt="image not found" className='heading-img' />}
                         </div>
                         <div className='main-heading'>
                             <h1>{movie.title}<span>&nbsp;({releaseYear})</span></h1>
@@ -144,21 +138,32 @@ const MovieInfo = () => {
                     <h2>Genres:</h2>
                     <div className="genres-list">
                         {genres.map((genre, index) => (
-                            <h2 key={index}>
+                            <h3 key={index}>
                                 {genre.name}
                                 {index < genres.length - 1 && (<>,&nbsp;&nbsp;</>)}
-                            </h2>
+                            </h3>
                         ))}
                     </div>
                 </div>
 
                 <div className="release-date-container info-card">
-                    <h2>Release date: {movie.release_date ? (<>{movie.release_date}</>) : (<>unkown</>)}</h2>
-                    <h2>Status: {movie.status ? (<>{movie.status}</>) : (<>unkown</>)}</h2>
+                    <div className="release-date">
+                        <h2>Release Date:&nbsp;&nbsp;</h2>
+                        {movie.release_date ? (<h3>{movie.release_date}</h3>) : (<h3>unkown</h3>)}
+                    </div>
+                    <div className="release-status">
+                        <h2>Status:&nbsp;&nbsp;</h2>
+                        {movie.status ? (<h3>{movie.status}</h3>) : (<h3>unkown</h3>)}
+                    </div>
+                </div>
+
+                <div className="info-cast-container info-card">
+                    <h1>Top Billed Cast:</h1>
+                    <CastSlider movieID = {movie.id}/>
                 </div>
 
             </div>
-        </>
+        </div>
 
     );
 };

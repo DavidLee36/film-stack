@@ -1,0 +1,74 @@
+.cast-slider-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.cast-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+}
+
+.cast-slider::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.cast-card {
+    flex: 0 0 auto;
+    width: 150px;
+    margin-right: 10px;
+    text-align: center;
+    transition: ease all 0.3s;
+    cursor: pointer;
+    z-index: 2;
+    margin-top: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.cast-card:hover {
+    transform: scale(1.03);
+    z-index: 1000;
+}
+
+.cast-image {
+    width: 98%;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+}
+
+.cast-name {
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-weight: bold;
+}
+
+.cast-character {
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.slide-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.left {
+    margin-right: 10px;
+}
+
+.right {
+    margin-left: 10px;
+}
+
+/* Add more styles for images, names, characters as needed */
