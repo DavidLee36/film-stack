@@ -3,6 +3,7 @@ import { API_KEY, OPTIONS } from "./APIinfo";
 
 
 const fetchMovieData = async (url) => {
+    console.log('api key is,', API_KEY)
     try {
         const response = await fetch(url, OPTIONS);
         const data = await response.json();
