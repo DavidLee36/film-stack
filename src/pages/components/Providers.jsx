@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAndFilterProviders } from '../../utilities/UtilityFunctions';
 import '../../styles/ComponentStyles.css';
+import ProviderData from '../../utilities/ProviderData.json'
 
 const Providers = ({ movieID }) => {
     const [providers, setProviders] = useState([]);
@@ -21,6 +22,7 @@ const Providers = ({ movieID }) => {
 
     const providerClick = (id) => { //Open the provider link on a new tab
         const currProvider = ProviderData.find(provider => provider.provider_id === id);
+        console.log(currProvider)
         window.open(currProvider.url, '_blank');
     }
 

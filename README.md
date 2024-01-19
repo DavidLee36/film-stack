@@ -17,24 +17,19 @@ This will clone the repository to your local machine and install all the necessa
 
 ## API Configuration
 
-To access movie data from The Movie Database (TMDb), you need to obtain an API key:
+To access movie data from The Movie Database (TMDb), you will need to obtain an API key and set up an authorization token:
 
 1. Visit [The Movie Database (TMDb)](https://www.themoviedb.org) and sign up for an account.
 2. Navigate to your account settings and request an API key.
-3. Once you have the API key, create a file named 'APIinfo.js' in the 'src/utilities' folder.
-4. In 'APIinfo.js', set up your API key and auth token as follows:
+3. Once you have the API key and the authorization token, you need to set up environment variables in your local environment and in your production environment (if deploying).
 
-```javascript
-// src/utilities/APIinfo.js
-export const API_KEY = 'your_api_key_here';
+### Local Setup
 
-export const OPTIONS = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer your_authorization_token_here'
-    }
-};
+Create a `.env` file in the root of your project and add the following lines:
+
+```plaintext
+VITE_API_KEY=your_api_key_here
+VITE_AUTHORIZATION_TOKEN=Bearer your_authorization_token_here
 ```
 Replace 'your_api_key_here' and 'your-authorization_token_here' with your actual API key and token.
 
