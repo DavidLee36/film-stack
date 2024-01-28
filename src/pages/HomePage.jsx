@@ -5,6 +5,7 @@ import MovieList from './components/MovieList.jsx';
 import GenreFilter from './components/GenreFilter.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import logo from '../assets/images/logo.png';
+import DefaultListFilter from './components/DefaultListFilter.jsx';
 
 import { PAGE_SIZE } from '../utilities/config.js';
 
@@ -18,6 +19,8 @@ const HomePage = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [genres, setGenres] = useState([]);
     const [currPage, setCurrPage] = useState(1);
+    const [defaultResults, setDefaultResults] = useState('top_rated');
+    const [resultsFor, setResultsFor] = useState('Top Rated');
 
 
     useEffect(() => { //On render
@@ -78,14 +81,24 @@ const HomePage = () => {
 
     const defaultMovieList = async() => { //Movie call that is default movies displayed
         showLoading(true);
-        const movieData = await getMovies(false, 'top_rated', false);
+        const movieData = await getMovies(false, defaultResults, false);
         setMovies(movieData);
         showLoading(false);
+        setResultsFor(defaultResults)
     }
+
+    useEffect(() => {
+        defaultMovieList();
+    }, [defaultResults])
 
     //Function passed to genre file to change the use state
     const genreChange = (data) => {
         setGenres(data);
+    }
+    
+    const defaultChange = (defaultSearch) => {
+        setDefaultResults(defaultSearch[0]);
+        setResultsFor(defaultSearch[1]);
     }
 
     const handleSearch = async(e) => {
@@ -96,10 +109,12 @@ const HomePage = () => {
         const closeBtn = document.querySelector('.clear-search');
         const searchBar = document.querySelector('#search');
         const query = searchBar.value;
+        setResultsFor(`results for '${query}'`);
 
         if (query) {
             const movieData = await getMovies(true, query, 'vote_count', 1);
             setMovies(movieData);
+
         }else {
             defaultMovieList();
             closeBtn.style.display = 'none' //Remove visibility on 'x' button
@@ -150,11 +165,13 @@ const HomePage = () => {
                     <img src={logo} alt="Film Stack"  />
                     {/* <h1>Film Stack</h1> */}
                 </div>
+                <DefaultListFilter setDefaultInMain={defaultChange}/>
                 <SearchBar onSearch={handleSearch} clearSearchbar={clearSearchbar}/>
-                <div className="filter-container">
+                <div className="header-filter-container">
                     <GenreFilter setGenreInMain={genreChange}/>
                 </div>
             </div>
+            <h2 className='results-for'>Currently showing: {resultsFor}</h2>
             <span className="loader"></span>
             {(displayMovies.length > 0 || filteredMovies.length > 0) ? (
                 <MovieList movies={displayMovies} handleMovieClick={handleMovieClick}/>
