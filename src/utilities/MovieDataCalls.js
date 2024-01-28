@@ -3,8 +3,6 @@ import { API_KEY, OPTIONS } from "./APIinfo";
 
 
 const fetchMovieData = async (url) => {
-    console.log('api key is,', API_KEY)
-    console.log('options: ', OPTIONS)
     try {
         const response = await fetch(url, OPTIONS);
         const data = await response.json();
@@ -39,7 +37,7 @@ const getMoviesByParam = async(param) => {
 };
 
 const searchMovies = async(search) => {
-    const url = `${BASE_URL}search/movie?query=${search}&include_adult=true&language=en-US&page=`;
+    const url = `${BASE_URL}search/movie?query=${search}&include_adult=false&language=en-US&page=`;
 
     const movies = getMultiplePages(url)
     return(movies);
