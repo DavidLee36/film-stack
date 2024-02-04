@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/FilterStyles.css';
 
-const DefaultListFilter = ({ setDefaultInMain }) => {
+const DiscoverListFilter = ({ setDefaultInMain }) => {
     const [defaultTerm, setDefaultTerm] = useState('top_rated')
 
     const possibleSearches = [
@@ -79,7 +79,7 @@ const DefaultListFilter = ({ setDefaultInMain }) => {
     return (
         <div className="filter-container">
             <div className="dropdown">
-                <button className="movie-dropbtn main-btn-style" onClick={handleMoviesClick}>Movies</button>
+                <button className="movie-dropbtn main-btn-style" onClick={handleMoviesClick}>Discover</button>
                 <div className="movie-dropdown dropdown-content">
                     {possibleSearches.map((search, idx) => (
                         <li key={idx} data-index={idx} className='movie-option' onClick={handleSelectMovie}>{search.display}</li>
@@ -90,4 +90,4 @@ const DefaultListFilter = ({ setDefaultInMain }) => {
     );
 };
 
-export default DefaultListFilter;
+export default DiscoverListFilter;

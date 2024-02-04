@@ -89,8 +89,9 @@ const MovieInfo = () => {
 
     return (
         <div className='movie-info-page-wrapper'>
+            
             <div className="home-btn-container">
-                <div className="logo" onClick={handleLogoClick}>
+                <div className="header-logo-container" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack"  />
                     {/* <h1>Film Stack</h1> */}
                 </div>

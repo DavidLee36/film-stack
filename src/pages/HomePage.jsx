@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { getMovies, filterMovies } from '../utilities/UtilityFunctions.js';
+import { getMovies, filterMovies, convertResultsForStr } from '../utilities/UtilityFunctions.js';
 import Modal from './components/Modal.jsx';
 import MovieList from './components/MovieList.jsx';
 import GenreFilter from './components/GenreFilter.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import logo from '../assets/images/logo.png';
-import DefaultListFilter from './components/DefaultListFilter.jsx';
+import DefaultListFilter from './components/DiscoverListFilter.jsx';
 
 import { PAGE_SIZE } from '../utilities/config.js';
 
@@ -80,11 +80,11 @@ const HomePage = () => {
     }
 
     const defaultMovieList = async() => { //Movie call that is default movies displayed
+        clearSearchbar();
         showLoading(true);
         const movieData = await getMovies(false, defaultResults, false);
         setMovies(movieData);
         showLoading(false);
-        setResultsFor(defaultResults)
     }
 
     useEffect(() => {
@@ -131,14 +131,14 @@ const HomePage = () => {
     const handleLogoClick = () => { //Clicked on logo
         clearSearchbar();
         defaultMovieList();
+        setResultsFor(convertResultsForStr(defaultResults));
     }
 
-    const clearSearchbar = (e) => {
+    const clearSearchbar = () => {
         const closeBtn = document.querySelector('.clear-search');
-        closeBtn.style.display = 'none'
+        closeBtn.classList.remove('show');
         const searchBar = document.getElementById('search');
         searchBar.value = '';
-        defaultMovieList();
     }
 
     //When there is a click anywhere on screen
@@ -161,17 +161,18 @@ const HomePage = () => {
     return (
         <div className='main-container' onClick={handleMainContainerClick}>
             <div className='header'>
-                <div className="logo" onClick={handleLogoClick}>
-                    <img src={logo} alt="Film Stack"  />
-                    {/* <h1>Film Stack</h1> */}
+                <div className="header-logo-container" onClick={handleLogoClick}>
+                    <img src={logo} alt="Film Stack"/>
                 </div>
-                <DefaultListFilter setDefaultInMain={defaultChange}/>
+                <div className="header-discover-list-container">
+                    <DefaultListFilter setDefaultInMain={defaultChange}/>
+                </div>
                 <SearchBar onSearch={handleSearch} clearSearchbar={clearSearchbar}/>
-                <div className="header-filter-container">
+                <div className="header-genre-filter-container">
                     <GenreFilter setGenreInMain={genreChange}/>
                 </div>
+                <h2 className='results-for'>Currently showing: {resultsFor}</h2>
             </div>
-            <h2 className='results-for'>Currently showing: {resultsFor}</h2>
             <span className="loader"></span>
             {(displayMovies.length > 0 || filteredMovies.length > 0) ? (
                 <MovieList movies={displayMovies} handleMovieClick={handleMovieClick}/>
@@ -192,7 +193,6 @@ const HomePage = () => {
                     </button>
                 }
             </div>
-            <h1>testing github is working?</h1>
         </div>
     );
 }

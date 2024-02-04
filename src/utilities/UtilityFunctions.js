@@ -124,10 +124,19 @@ const numToDollar = (amount) => { //Convert int to USD format ie. 1234 => $1,234
     return USDollar.format(amount);
 }
 
+//Used in converting str format ex. top_rated => Top Rated
+const convertResultsForStr = (str) => {
+    let words = str.split('_');
+    return words.map((word) => {
+        return word[0].toUpperCase() + word.substring(1);
+    }).join(" ");
+}
+
 export {
     getMovies,
     filterMovies,
     getAndFilterProviders,
     getStarRating,
-    numToDollar
+    numToDollar,
+    convertResultsForStr
 };
