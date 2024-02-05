@@ -161,7 +161,7 @@ const HomePage = () => {
     return (
         <div className='main-container' onClick={handleMainContainerClick}>
             <div className='header'>
-                <div className="header-logo-container" onClick={handleLogoClick}>
+                <div className="header-logo-container logo" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack"/>
                 </div>
                 <div className="header-discover-list-container">

@@ -37,7 +37,6 @@ const filterMovies = (genres, date, rating, movies) => {
                 return movie.genre_ids.includes(genreID)
             });
         })
-
     }
     if (date) {
 
@@ -132,11 +131,33 @@ const convertResultsForStr = (str) => {
     }).join(" ");
 }
 
+const addToFavorites = (movie) => {
+    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    console.log('from util', movie);
+    savedFavorites.push(movie);
+    localStorage.setItem('favorites', JSON.stringify(savedFavorites));
+}
+
+const removeFromFavorites = (movieID) => {
+    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    savedFavorites = savedFavorites.filter(movie => movie.id !== movieID);
+    localStorage.setItem('favorites', JSON.stringify(savedFavorites));
+}
+
+const movieIsFavorited = (movieID) => {
+    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    console.log(savedFavorites);
+    return savedFavorites.some(movie => movie.id === movieID);
+}
+
 export {
     getMovies,
     filterMovies,
     getAndFilterProviders,
     getStarRating,
     numToDollar,
-    convertResultsForStr
+    convertResultsForStr,
+    addToFavorites,
+    removeFromFavorites,
+    movieIsFavorited
 };

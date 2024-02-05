@@ -154,14 +154,7 @@
     height: 100%;
     padding: 0;
     margin: 0;
-    -webkit-filter: drop-shadow(5px 5px 5px #000000);
-    filter: drop-shadow(5px 5px 5px var(--primary-accent-color));
-    transition: all ease 0.3s;
-    object-fit: cover;
-}
 
-.header-logo-container img:hover {
-    transform: scale(1.03);
 }
 
 #none-found {
