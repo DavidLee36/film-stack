@@ -131,21 +131,24 @@ const convertResultsForStr = (str) => {
     }).join(" ");
 }
 
+const getFavoriteMovies = () => {
+    return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
 const addToFavorites = (movie) => {
-    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    console.log('from util', movie);
+    let savedFavorites = getFavoriteMovies();
     savedFavorites.push(movie);
     localStorage.setItem('favorites', JSON.stringify(savedFavorites));
 }
 
 const removeFromFavorites = (movieID) => {
-    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let savedFavorites = getFavoriteMovies();
     savedFavorites = savedFavorites.filter(movie => movie.id !== movieID);
     localStorage.setItem('favorites', JSON.stringify(savedFavorites));
 }
 
 const movieIsFavorited = (movieID) => {
-    let savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let savedFavorites = getFavoriteMovies();
     console.log(savedFavorites);
     return savedFavorites.some(movie => movie.id === movieID);
 }
@@ -159,5 +162,6 @@ export {
     convertResultsForStr,
     addToFavorites,
     removeFromFavorites,
-    movieIsFavorited
+    movieIsFavorited,
+    getFavoriteMovies
 };

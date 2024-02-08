@@ -157,6 +157,12 @@
 
 }
 
+.header-view-fav-container {
+    grid-column: 2/3;
+    align-self: center;
+    justify-self: center;
+}
+
 #none-found {
     font-family: var(--font-family);
     color: var(--text-color);

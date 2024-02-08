@@ -1,17 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Rating from './Rating.jsx';
 import Providers from './Providers.jsx';
 import '../../styles/ModalStyles.css';
 import { BASE_IMG_URL } from '../../utilities/config.js';
+import { movieIsFavorited, addToFavorites, removeFromFavorites } from '../../utilities/UtilityFunctions.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 
 
 const Modal = ({ movie, onClose }) => {
+    const [favorited, setFavorited] = useState(false);
+
+    useEffect(() => {
+        setFavorited(movieIsFavorited(movie.id));
+    }, [movie]);
+
+    const handleEscape = (e) => {
+        if(e.key === 'Escape') {
+            if(window.location.pathname.includes('/favorites')) {
+                navigate('/favorites');
+            }
+            onClose();
+        }
+    }
+
+    useEffect(() => {
+
+            window.addEventListener('keydown', handleEscape);
+
+
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+        };
+    }, [])
 
     const navigate = useNavigate();
 
     const handleMoreInfo = () => {
         navigate(`/additional-info#${movie.id}`, { state: { movie } });
+    }
+
+    const changeFavStatus = () => {
+        if(favorited) {
+            removeFromFavorites(movie.id);
+            setFavorited(false);
+        }else {
+            addToFavorites(movie);
+            setFavorited(true);
+        }
     }
 
     return (
@@ -25,6 +63,9 @@ const Modal = ({ movie, onClose }) => {
                 </div>
                 <div className='title-container'>
                     <h1 id='modal-title'>{movie.title}</h1>
+                </div>
+                <div className="modal-fav-container">
+                    <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='fav-star' onClick={changeFavStatus}/>
                 </div>
                 <div className='overview-container'>
                     <p id="modal-overview">{movie.overview}</p>
