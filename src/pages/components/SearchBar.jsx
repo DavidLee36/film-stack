@@ -17,9 +17,12 @@ const SearchBar = ({ onSearch, clearSearchbar }) => {
 
     return (
         <form className="search-container" onSubmit={onSearch}>
-            <input type="text" name="search" id="search" placeholder='Search...' onChange={onSearchChange} />
-            <button type='button' onClick={clearSearchbar} className='clear-search'>X</button>
-            <button type='submit'>
+            <div className="search-input-container">
+                <input type="text" name="search" id="search" placeholder='Search...' onChange={onSearchChange} />
+                <button type='button' onClick={clearSearchbar} className='clear-search'>X</button>
+            </div>
+
+            <button type='submit' id='search-icon'>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
         </form>

@@ -27,10 +27,7 @@ const Modal = ({ movie, onClose }) => {
     }
 
     useEffect(() => {
-
-            window.addEventListener('keydown', handleEscape);
-
-
+        window.addEventListener('keydown', handleEscape);
         return () => {
             window.removeEventListener('keydown', handleEscape);
         };

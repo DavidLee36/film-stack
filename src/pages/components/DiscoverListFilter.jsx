@@ -26,20 +26,20 @@ const DiscoverListFilter = ({ setDefaultInMain }) => {
     useEffect(() => {
         const handleEscapeKey = (e) => {
             if (e.key === 'Escape') {
-                const movieDropdown = document.querySelector('.movie-dropdown');
-                if (movieDropdown) {
-                    movieDropdown.classList.remove('show');
+                const discoverDropdown = document.querySelector('.discover-dropdown');
+                if (discoverDropdown) {
+                    discoverDropdown.classList.remove('show');
                 }
             }
         };
 
         const handleWindowClick = (e) => {
-            if(!e.target.classList.contains('movie-dropbtn') &&
-            !e.target.classList.contains('movie-dropdown') &&
-            !e.target.classList.contains('movie-option')) {
-                const movieDropdown = document.querySelector('.movie-dropdown');
-                if (movieDropdown) {
-                    movieDropdown.classList.remove('showdoesntfuckingwork');
+            if(!e.target.classList.contains('discover-dropbtn') &&
+            !e.target.classList.contains('discover-dropdown') &&
+            !e.target.classList.contains('discover-option')) {
+                const discoverDropdown = document.querySelector('.discover-dropdown');
+                if (discoverDropdown) {
+                    discoverDropdown.classList.remove('showdoesntfuckingwork');
                 }
             }
         }
@@ -54,13 +54,13 @@ const DiscoverListFilter = ({ setDefaultInMain }) => {
         };
     }, []);
 
-    const handleMoviesClick = () => {
-        const movieDropdown = document.querySelector('.movie-dropdown');
-        movieDropdown.classList.toggle('showdoesntfuckingwork');
+    const handlediscoversClick = () => {
+        const discoverDropdown = document.querySelector('.discover-dropdown');
+        discoverDropdown.classList.toggle('showdoesntfuckingwork');
     };
 
-    const handleSelectMovie = (e) => {
-        const options = document.querySelectorAll('.movie-option');
+    const handleSelectdiscover = (e) => {
+        const options = document.querySelectorAll('.discover-option');
         options.forEach((option) => {
             if (option.classList.contains('selected')) {
                 option.classList.remove('selected')
@@ -79,10 +79,10 @@ const DiscoverListFilter = ({ setDefaultInMain }) => {
     return (
         <div className="filter-container">
             <div className="dropdown">
-                <button className="movie-dropbtn main-btn-style" onClick={handleMoviesClick}>Discover</button>
-                <div className="movie-dropdown dropdown-content">
+                <button className="discover-dropbtn main-btn-style" onClick={handlediscoversClick}>Discover</button>
+                <div className="discover-dropdown dropdown-content">
                     {possibleSearches.map((search, idx) => (
-                        <li key={idx} data-index={idx} className='movie-option' onClick={handleSelectMovie}>{search.display}</li>
+                        <li key={idx} data-index={idx} className='discover-option' onClick={handleSelectdiscover}>{search.display}</li>
                     ))}
                 </div>
             </div>

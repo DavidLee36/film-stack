@@ -11,6 +11,7 @@ import { BASE_IMG_URL } from '../utilities/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import ViewFavBtn from './components/ViewFavBtn';
 
 const MovieInfo = () => {
     const [movie, setMovie] = useState([]);
@@ -103,6 +104,9 @@ const MovieInfo = () => {
             <div className="movie-info-header">
                 <div className="info-header-logo-container logo" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack" />
+                </div>
+                <div className="info-header-view-fav">
+                    <ViewFavBtn/>
                 </div>
                 <div className="info-fav-container">
                         <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='fav-star' onClick={changeFavStatus}/>

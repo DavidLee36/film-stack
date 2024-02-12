@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getMovies, filterMovies, convertResultsForStr } from '../utilities/UtilityFunctions.js';
 import DisplayMovies from './components/DisplayMovies.jsx';
 import GenreFilter from './components/GenreFilter.jsx';
+import DateRangePicker from './components/DateRangePicker.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import logo from '../assets/images/logo.png';
 import DefaultListFilter from './components/DiscoverListFilter.jsx';
@@ -10,9 +11,10 @@ import ViewFavBtn from './components/ViewFavBtn.jsx';
 import '../styles/HomeStyles.css';
 
 const HomePage = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState(['shit the bed']);
     const [filteredMovies, setFilteredMovies] = useState(['placeholder']);
     const [genres, setGenres] = useState([]);
+    const [dates, setDates] = useState({'startDate':'', 'endDate':''});
     const [defaultResults, setDefaultResults] = useState('top_rated');
     const [resultsFor, setResultsFor] = useState('Top Rated');
 
@@ -22,14 +24,13 @@ const HomePage = () => {
         clearSearchbar(); //ensure search bar is empty and 'x' button is not visible
     }, []);
 
-    const getFilteredMovies = (movieList) => filterMovies(genres, [], [], movieList);
+    const getFilteredMovies = (movieList) => filterMovies(genres, dates, [], movieList);
 
     useEffect(() => { //New movie list recieved or filter data changed
 
         //call function to filter movies based on genres etc.
         setFilteredMovies(getFilteredMovies(movies));
-    }, [movies, genres]);
-
+    }, [movies, genres, dates]);
 
 
     const showLoading = (status) => {
@@ -57,6 +58,11 @@ const HomePage = () => {
     //Function passed to genre file to change the use state
     const genreChange = (data) => {
         setGenres(data);
+    }
+
+    const dateChange = (data) => {
+        console.log(data);
+        setDates(data);
     }
     
     const defaultChange = (defaultSearch) => {
@@ -122,6 +128,9 @@ const HomePage = () => {
                 <SearchBar onSearch={handleSearch} clearSearchbar={clearSearchbar}/>
                 <div className="header-genre-filter-container">
                     <GenreFilter setGenreInMain={genreChange}/>
+                </div>
+                <div className="header-date-filter-container">
+                    <DateRangePicker onDateRangeSelected={dateChange}/>
                 </div>
                 <h2 className='results-for'>Currently showing: {resultsFor}</h2>
             </div>

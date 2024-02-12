@@ -234,6 +234,14 @@
     max-width: 100%;
 }
 
+.info-header-view-fav {
+    grid-column: 7/8;
+    height: fit-content;
+    width: fit-content;
+    justify-self: end;
+    align-self: center;
+}
+
 .info-fav-container {
     grid-column: 8/9;
     justify-self: center;

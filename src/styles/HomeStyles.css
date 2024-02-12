@@ -55,18 +55,20 @@
 
 .search-container {
     display: flex;
-    width: fit-content;
-    position: relative;
+    width: 100%;
     grid-column: 4/7;
     justify-self: center;
     align-self: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
 }
 
+/* search input field */
 #search {
     background-color: #2d2d30;
-    /* Changed from transparent to Secondary Dark for a more cohesive appearance */
     color: white;
-    width: 400px;
+    width: 90%;
     height: 2rem;
     outline: 2px solid var(--primary-accent-color);
     /* Reduced the outline width for subtlety */
@@ -75,7 +77,6 @@
     padding-block: 5px;
     border: none;
     font-size: 1rem;
-    /* Removed explicit border-color as it was redundant with the outline */
 }
 
 #search:active,
@@ -86,11 +87,14 @@
     outline-offset: 1px;
 }
 
+.search-input-container {
+    width: 60%;
+    position: relative;
+}
+
 /* X button */
-.search-container button:first-of-type {
+.search-input-container button {
     z-index: 250;
-    position: absolute;
-    right: 4rem;
     color: var(--secondary-accent-color);
     background-color: transparent;
     outline: none;
@@ -98,10 +102,18 @@
     cursor: pointer;
     font-size: 2rem;
     text-shadow: var(--text-shadow);
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.show {
+    display: block !important;
 }
 
 /* search button (magnifiying glass) */
-.search-container button:last-of-type {
+#search-icon {
     color: var(--secondary-accent-color);
     background-color: transparent;
     outline: none;
@@ -109,7 +121,6 @@
     cursor: pointer;
     font-size: 2rem;
     text-shadow: var(--text-shadow);
-    margin-left: 0.5rem;
 }
 
 .header {
@@ -128,6 +139,14 @@
     align-self: center;
     justify-self: center;
 }
+
+.header-date-filter-container {
+    position: relative;
+    grid-column: 8/9;
+    align-self: center;
+    justify-self: center;
+}
+
 .header-discover-list-container {
     grid-column: 3/4;
     align-self: center;
@@ -174,6 +193,7 @@
 .pagination {
     width: 100%;
     margin-bottom: 2rem;
+    height: 3rem;
 }
 
 .pag-prev {
