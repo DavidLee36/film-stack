@@ -68,6 +68,18 @@ body {
     animation: rotation 0.5s linear infinite reverse;
 }
 
+.logo {
+    -webkit-filter: drop-shadow(5px 5px 5px #000000);
+    filter: drop-shadow(5px 5px 5px var(--primary-accent-color));
+    transition: all ease 0.3s;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.03);
+}
+
 @keyframes rotation {
     0% {
         transform: rotate(0deg);

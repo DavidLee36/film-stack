@@ -33,6 +33,7 @@ const GenreFilter = ({ setGenreInMain }) => {
         // Clean up
         return () => {
             window.removeEventListener('keydown', handleEscapeKey);
+            window.removeEventListener('click', handleWindowClick);
         };
     }, []);
 
@@ -43,6 +44,7 @@ const GenreFilter = ({ setGenreInMain }) => {
 
     const handleSelectGenre = (e) => {
         e.target.classList.toggle('selected');
+        const btn = document.querySelector('.genre-dropbtn');
         const options = document.querySelectorAll('.genre-option');
         let genres = [];
         options.forEach((option) => {
@@ -50,6 +52,11 @@ const GenreFilter = ({ setGenreInMain }) => {
                 genres.push(option.innerHTML);
             }
         });
+        if(genres.length > 0) {
+            btn.classList.add('filter-btn-active');
+        }else {
+            btn.classList.remove('filter-btn-active');
+        }
         setChosenGenre(genres);
         setGenreInMain(genres);
     };

@@ -5,14 +5,19 @@ import Rating from './components/Rating';
 import CastSlider from './components/CastSlider';
 import { getSingularMovie } from '../utilities/MovieDataCalls';
 import '../styles/AdditionalInfo.css';
-import { numToDollar } from '../utilities/UtilityFunctions';
+import { numToDollar, addToFavorites, removeFromFavorites, movieIsFavorited } from '../utilities/UtilityFunctions';
 import logo from '../assets/images/logo.png';
 import { BASE_IMG_URL } from '../utilities/config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
+import ViewFavBtn from './components/ViewFavBtn';
 
 const MovieInfo = () => {
     const [movie, setMovie] = useState([]);
     const [releaseYear, setReleaseYear] = useState('');
     const [genres, setGenres] = useState([]);
+    const [favorited, setFavorited] = useState(false);
 
     const navigate = useNavigate();
 
@@ -47,6 +52,7 @@ const MovieInfo = () => {
 
     useEffect(() => {
         setBackground();
+        setFavorited(movieIsFavorited(movie.id));
     }, [movie]);
 
     const getMovieData = async (id) => {
@@ -68,14 +74,10 @@ const MovieInfo = () => {
         }
     }
 
-
-
     const setMovieData = async () => {
         const movieID = +window.location.hash.slice(1);
         await getMovieData(movieID);
     }
-
-
 
     useEffect(() => { //On render
         setMovieData();
@@ -86,16 +88,30 @@ const MovieInfo = () => {
         navigate('/');
     }
 
+    const changeFavStatus = () => {
+        if(favorited) {
+            removeFromFavorites(movie.id);
+            setFavorited(false);
+        }else {
+            addToFavorites(movie);
+            setFavorited(true);
+        }
+    }
 
     return (
         <div className='movie-info-page-wrapper'>
-            <div className="home-btn-container">
-                <div className="logo" onClick={handleLogoClick}>
-                    <img src={logo} alt="Film Stack"  />
-                    {/* <h1>Film Stack</h1> */}
+
+            <div className="movie-info-header">
+                <div className="info-header-logo-container logo" onClick={handleLogoClick}>
+                    <img src={logo} alt="Film Stack" />
+                </div>
+                <div className="info-header-view-fav">
+                    <ViewFavBtn/>
+                </div>
+                <div className="info-fav-container">
+                        <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='fav-star' onClick={changeFavStatus}/>
                 </div>
             </div>
-
             <div className='additional-info-container'>
                 {movie.length === 0 && <h1>Unable to retrieve movie data please try again later</h1>}
 
@@ -159,7 +175,7 @@ const MovieInfo = () => {
 
                 <div className="info-cast-container info-card">
                     <h1>Top Billed Cast:</h1>
-                    <CastSlider movieID = {movie.id}/>
+                    <CastSlider movieID={movie.id} />
                 </div>
 
             </div>

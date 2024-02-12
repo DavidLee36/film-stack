@@ -27,6 +27,43 @@ const getGenreIDs = (genreNames, genreData) => {
     }).filter(id => id != null);
 }
 
+const stringArrToIntArr = (stringArr) => {
+    let numArr = [];
+    for(let i = 0; i < stringArr.length; i++) {
+        numArr.push(parseInt(stringArr[i]));
+    }
+    return numArr;
+}
+
+//Helper function to determine if a movie is in between filtered date range
+const filterMovieDate = (startDate, endDate, releaseDate) => {
+    //Convert all three dates to an int array [year, month, day]
+    const startDateArr = stringArrToIntArr(startDate.split('-'));
+    const endDateArr = stringArrToIntArr(endDate.split('-'));
+    const releaseDateArr = stringArrToIntArr(releaseDate.split('-'));
+
+    if(startDateArr.length > 1) { //Get all movies released after start date
+        if(startDateArr[0] > releaseDateArr[0]) return false;
+        if(startDateArr[0] === releaseDateArr[0]) {
+            if(startDateArr[1] > releaseDateArr[1]) return false;
+            if(startDateArr[1] === releaseDateArr[1]) {
+                if(startDateArr[2] > releaseDateArr[2]) return false;
+            }
+        }
+    }
+    if(endDateArr.length > 1) { //Get all movies released before end date
+        if(endDateArr[0] < releaseDateArr[0]) return false;
+        if(endDateArr[0] === releaseDateArr[0]) {
+            if(endDateArr[1] < releaseDateArr[1]) return false;
+            if(endDateArr[1] === releaseDateArr[1]) {
+                if(endDateArr[2] < releaseDateArr[2]) return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 const filterMovies = (genres, date, rating, movies) => {
     let filteredMovies = movies;
 
@@ -37,10 +74,11 @@ const filterMovies = (genres, date, rating, movies) => {
                 return movie.genre_ids.includes(genreID)
             });
         })
-
     }
-    if (date) {
-
+    if (date.startDate.length > 0 || date.endDate.length > 0) {
+        filteredMovies = filteredMovies.filter(movie => {
+            return filterMovieDate(date.startDate, date.endDate, movie.release_date)
+        });
     }
     if (rating) {
 
@@ -124,10 +162,45 @@ const numToDollar = (amount) => { //Convert int to USD format ie. 1234 => $1,234
     return USDollar.format(amount);
 }
 
+//Used in converting str format ex. top_rated => Top Rated
+const convertResultsForStr = (str) => {
+    let words = str.split('_');
+    return words.map((word) => {
+        return word[0].toUpperCase() + word.substring(1);
+    }).join(" ");
+}
+
+const getFavoriteMovies = () => {
+    return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+const addToFavorites = (movie) => {
+    let savedFavorites = getFavoriteMovies();
+    savedFavorites.push(movie);
+    localStorage.setItem('favorites', JSON.stringify(savedFavorites));
+}
+
+const removeFromFavorites = (movieID) => {
+    let savedFavorites = getFavoriteMovies();
+    savedFavorites = savedFavorites.filter(movie => movie.id !== movieID);
+    localStorage.setItem('favorites', JSON.stringify(savedFavorites));
+}
+
+const movieIsFavorited = (movieID) => {
+    let savedFavorites = getFavoriteMovies();
+    console.log(savedFavorites);
+    return savedFavorites.some(movie => movie.id === movieID);
+}
+
 export {
     getMovies,
     filterMovies,
     getAndFilterProviders,
     getStarRating,
-    numToDollar
+    numToDollar,
+    convertResultsForStr,
+    addToFavorites,
+    removeFromFavorites,
+    movieIsFavorited,
+    getFavoriteMovies
 };

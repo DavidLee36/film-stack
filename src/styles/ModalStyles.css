@@ -2,6 +2,8 @@
 
 .modal-overlay {
     position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.4);
@@ -17,14 +19,14 @@
     padding: 1.5rem;
     display: grid;
     gap: 1rem;
-    grid-auto-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 5rem;
     grid-template-areas: 
         'image title'
         'image description'
         'providers rating'
         'providers additional'
     ;
-    max-width: 60%;
+    max-width: 70%;
     justify-items: center;
     font-family: var(--font-family);
     border-radius: 10px;

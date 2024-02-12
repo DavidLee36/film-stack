@@ -1,0 +1,22 @@
+@import url('./GlobalStyles.css');
+
+.fav-page-header {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 14rem;
+    padding-inline: 1.5rem;
+}
+
+.fav-header-logo {
+    max-height: 100%;
+    grid-column: 1/2;
+}
+
+.fav-page-header h1 {
+    color: var(--text-color);
+    text-shadow: var(--text-shadow);
+    font-family: var(--font-family);
+    grid-column: 4/6;
+    justify-self: center;
+    margin-top: 3.5rem;
+}
