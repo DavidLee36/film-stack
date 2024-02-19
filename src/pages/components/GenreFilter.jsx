@@ -10,7 +10,7 @@ const GenreFilter = ({ setGenreInMain }) => {
             if (e.key === 'Escape') {
                 const genreDropdown = document.querySelector('.genre-dropdown');
                 if (genreDropdown) {
-                    genreDropdown.classList.remove('show');
+                    genreDropdown.classList.remove('showdoesntfuckingwork');
                 }
             }
         };

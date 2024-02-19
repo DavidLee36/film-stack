@@ -4,13 +4,15 @@ import Modal from '../components/Modal.jsx';
 import { PAGE_SIZE } from '../../utilities/config.js';
 import '../../styles/HomeStyles.css';
 
-const DisplayMovies = ({ movies }) => {
-    const [displayMovies, setDisplayMovies] = useState([]);
+const DisplayMovies = ({ movies, resetSignal }) => {
+    const [displayMovies, setDisplayMovies] = useState(['placeholder']);
     const [currPage, setCurrPage] = useState(1);
     const [modalActive, setModalActive] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-
+    useEffect(() => {
+        setCurrPage(1);
+    }, [resetSignal])
 
     //handleCurrPage changing iff movies is populated
     useEffect(() => {
@@ -52,7 +54,7 @@ const DisplayMovies = ({ movies }) => {
     return (
         <>
             <MovieList movies={displayMovies} handleMovieClick={handleMovieClick} />
-
+            {/* {displayMovies.length < 1 && (<h2>No movies found</h2>)} */}
             {modalActive && (
                 <Modal movie={selectedMovie} onClose={() => closeModal()} />
             )}

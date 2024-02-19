@@ -147,6 +147,13 @@
     justify-self: center;
 }
 
+.header-rating-filter-container {
+    grid-column: 9/10;
+    align-self: center;
+    justify-self: center;
+    position: relative;
+}
+
 .header-discover-list-container {
     grid-column: 3/4;
     align-self: center;

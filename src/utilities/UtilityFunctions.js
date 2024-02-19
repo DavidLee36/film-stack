@@ -80,8 +80,12 @@ const filterMovies = (genres, date, rating, movies) => {
             return filterMovieDate(date.startDate, date.endDate, movie.release_date)
         });
     }
-    if (rating) {
-
+    if (rating > 0) {
+        console.log('filtering rating: ', rating);
+        filteredMovies = filteredMovies.filter(movie => {
+            const movieRating = Math.round(movie.vote_average) / 2;
+            return (movieRating >= rating);
+        })
     }
     return filteredMovies;
 }

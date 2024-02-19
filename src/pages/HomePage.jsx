@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getMovies, filterMovies, convertResultsForStr } from '../utilities/UtilityFunctions.js';
 import DisplayMovies from './components/DisplayMovies.jsx';
 import GenreFilter from './components/GenreFilter.jsx';
+import FilterRating from './components/FilterRating.jsx';
 import DateRangePicker from './components/DateRangePicker.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import logo from '../assets/images/logo.png';
@@ -15,8 +16,11 @@ const HomePage = () => {
     const [filteredMovies, setFilteredMovies] = useState(['placeholder']);
     const [genres, setGenres] = useState([]);
     const [dates, setDates] = useState({'startDate':'', 'endDate':''});
+    const [rating, setRating] = useState(0);
     const [defaultResults, setDefaultResults] = useState('top_rated');
     const [resultsFor, setResultsFor] = useState('Top Rated');
+    const [isLoading, setIsLoading] = useState(false);
+    const [resetCurrPage, setResetCurrPage] = useState(false);
 
 
     useEffect(() => { //On render
@@ -24,23 +28,27 @@ const HomePage = () => {
         clearSearchbar(); //ensure search bar is empty and 'x' button is not visible
     }, []);
 
-    const getFilteredMovies = (movieList) => filterMovies(genres, dates, [], movieList);
+    const getFilteredMovies = (movieList) => filterMovies(genres, dates, rating, movieList);
 
     useEffect(() => { //New movie list recieved or filter data changed
 
         //call function to filter movies based on genres etc.
         setFilteredMovies(getFilteredMovies(movies));
-    }, [movies, genres, dates]);
+        setResetCurrPage(!resetCurrPage);
+    }, [movies, genres, dates, rating]);
 
 
     const showLoading = (status) => {
+        
         const loadingIcon = document.querySelector('.loader');
         if(status) {
             setFilteredMovies([]);
             loadingIcon.classList.add('show')
+            setIsLoading(true);
             return
         }
         loadingIcon.classList.remove('show');
+        setIsLoading(false);
     }
 
     const defaultMovieList = async() => { //Movie call that is default movies displayed
@@ -61,8 +69,11 @@ const HomePage = () => {
     }
 
     const dateChange = (data) => {
-        console.log(data);
         setDates(data);
+    }
+
+    const ratingChange = (data) => {
+        setRating(data);
     }
     
     const defaultChange = (defaultSearch) => {
@@ -132,12 +143,14 @@ const HomePage = () => {
                 <div className="header-date-filter-container">
                     <DateRangePicker onDateRangeSelected={dateChange}/>
                 </div>
+                <div className="header-rating-filter-container">
+                    <FilterRating onRatingSelected={ratingChange}/>
+                </div>
                 <h2 className='results-for'>Currently showing: {resultsFor}</h2>
             </div>
             <span className="loader"></span>
-            {(movies.length > 0) ? (
-                <DisplayMovies movies={filteredMovies}/>
-            ):(
+            <DisplayMovies movies={filteredMovies} resetSignal={resetCurrPage}/>
+            {(filteredMovies.length < 1 && !isLoading) && (
                 <h2>No movies found</h2>
             )}
         </div>

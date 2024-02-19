@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import '../../styles/FilterStyles.css'; // Adjust the path as necessary
+import React, { useState, useEffect, useRef } from 'react';
+import '../../styles/FilterStyles.css';
 
 const DateRangePicker = ({ onDateRangeSelected }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    const [appliedStartDate, setAppliedStartDate] = useState('');
+    const [appliedEndDate, setAppliedEndDate] = useState('');
+
+    const datePickerRef = useRef(null); // Ref for the date picker container
+
+    // This effect handles closing actions (Esc key or clicking outside)
     useEffect(() => {
         const handleEscapeKey = (e) => {
             if (e.key === 'Escape') {
@@ -13,48 +19,62 @@ const DateRangePicker = ({ onDateRangeSelected }) => {
             }
         };
 
-        const handleWindowClick = (e) => {
-            if(!e.target.classList.contains('date-picker-container') &&
-            !e.target.classList.contains('date-input') && 
-            !e.target.classList.contains('date-filter-btn')) {
+        const handleOutsideClick = (e) => {
+            if (datePickerRef.current && !datePickerRef.current.contains(e.target) && !e.target.matches('.date-filter-btn')) {
                 setIsVisible(false);
             }
-        }
+        };
 
-        // Add event listener
-        window.addEventListener('keydown', handleEscapeKey);
-        window.addEventListener('click', handleWindowClick);
+        document.addEventListener('keydown', handleEscapeKey);
+        document.addEventListener('mousedown', handleOutsideClick);
 
-        // Clean up
         return () => {
-            window.removeEventListener('keydown', handleEscapeKey);
-            window.removeEventListener('click', handleWindowClick);
+            document.removeEventListener('keydown', handleEscapeKey);
+            document.removeEventListener('mousedown', handleOutsideClick);
         };
     }, []);
 
+    // This effect reverts the startDate and endDate when the dropdown is closed without applying
+    useEffect(() => {
+        if (!isVisible) {
+            setStartDate(appliedStartDate);
+            setEndDate(appliedEndDate);
+        }
+    }, [isVisible, appliedStartDate, appliedEndDate]);
+
     const handleApply = () => {
-        const dateBtn = document.querySelector('.date-filter-btn');
+        setAppliedStartDate(startDate);
+        setAppliedEndDate(endDate);
 
-        const selectedDates = {
-            'startDate': startDate,
-            'endDate': endDate
-        }
-
-        if(selectedDates.startDate || selectedDates.endDate) {
-            dateBtn.classList.add('filter-btn-active');
-        }else {
-            dateBtn.classList.remove('filter-btn-active');
-        }
-
-        onDateRangeSelected(selectedDates);
+        onDateRangeSelected({ startDate, endDate });
         setIsVisible(false); // Hide the date picker
+
+        const btn = document.querySelector('.date-filter-btn');
+        if(startDate || endDate) {
+            btn.classList.add('filter-btn-active');
+        }else {
+            btn.classList.remove('filter-btn-active');
+        }
     };
+
+    const onClear = () => {
+        setStartDate('');
+        setEndDate('');
+        setAppliedStartDate('');
+        setAppliedEndDate('');
+        const btn = document.querySelector('.date-filter-btn');
+        btn.classList.remove('filter-btn-active');
+        setIsVisible(false);
+        onDateRangeSelected({startDate: '', endDate: ''});
+    }
 
     return (
         <div>
-            <button onClick={() => setIsVisible(!isVisible)} className='main-btn-style date-filter-btn'>Filter Dates</button>
+            <button onClick={() => setIsVisible(!isVisible)} className='main-btn-style date-filter-btn'>
+                Filter Dates
+            </button>
             {isVisible && (
-                <div className="date-picker-container">
+                <div className="date-picker-container" ref={datePickerRef}>
                     <h3>Released After:</h3>
                     <input
                         type="date"
@@ -69,7 +89,10 @@ const DateRangePicker = ({ onDateRangeSelected }) => {
                         onChange={(e) => setEndDate(e.target.value)}
                         className='date-input'
                     />
-                    <button onClick={handleApply}>Apply</button>
+                                        <div className="filter-footer-btns">
+                        <button className="apply-filter-btn" onClick={onClear}>Clear</button>
+                        <button className='apply-filter-btn' onClick={handleApply}>Apply</button>
+                    </div>
                 </div>
             )}
         </div>
