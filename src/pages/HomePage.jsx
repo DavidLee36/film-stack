@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { getMovies, filterMovies, convertResultsForStr } from '../utilities/UtilityFunctions.js';
 import DisplayMovies from './components/DisplayMovies.jsx';
 import GenreFilter from './components/GenreFilter.jsx';
@@ -21,6 +21,8 @@ const HomePage = () => {
     const [resultsFor, setResultsFor] = useState('Top Rated');
     const [isLoading, setIsLoading] = useState(false);
     const [resetCurrPage, setResetCurrPage] = useState(false);
+    const [showSideFilters, setShowSideFilters] = useState(false);
+    const sidePanelRef = useRef(null);
 
 
     useEffect(() => { //On render
@@ -124,12 +126,23 @@ const HomePage = () => {
         }
     }
 
+    const toggleSidePanel = () => {
+        if(sidePanelRef) {
+            sidePanelRef.current.classList.toggle('show');
+        }
+    }
+
     return (
         <div className='main-container' onClick={handleMainContainerClick}>
             <div className='header'>
                 <div className="header-logo-container logo" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack"/>
                 </div>
+                
+                <button className="expand-filters-button main-btn-style" onClick={toggleSidePanel}>
+                    Filter
+                </button>
+
                 <div className="header-view-fav-container">
                     <ViewFavBtn/>
                 </div>
@@ -153,6 +166,15 @@ const HomePage = () => {
             {(filteredMovies.length < 1 && !isLoading) && (
                 <h2>No movies found</h2>
             )}
+
+            <div className="side-panel" ref={sidePanelRef}>
+                <div className='side-filters-container'>
+                    <button className='side-panel-x' onClick={toggleSidePanel}>X</button>
+                    <DateRangePicker onDateRangeSelected={dateChange}/>
+                    <FilterRating onRatingSelected={ratingChange}/>
+                    <GenreFilter setGenreInMain={genreChange}/>
+                </div>
+            </div>
         </div>
     );
 }

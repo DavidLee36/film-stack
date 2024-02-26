@@ -15,6 +15,7 @@ body {
     --secondary-color: #2a2e37;
     --primary-accent-color: #852732;
     --secondary-accent-color: #d15858;
+    --side-panel-screen-width: 74em;
 }
 
 .main-btn-style {
@@ -89,3 +90,13 @@ body {
         transform: rotate(360deg);
     }
 }
+
+@media (max-width: 90em) {
+    .main-btn-style {
+        font-size: .7rem;
+    }
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+

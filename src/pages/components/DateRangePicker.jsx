@@ -69,8 +69,8 @@ const DateRangePicker = ({ onDateRangeSelected }) => {
     }
 
     return (
-        <div>
-            <button onClick={() => setIsVisible(!isVisible)} className='main-btn-style date-filter-btn'>
+        <div className='filter-wrapper'>
+            <button onClick={() => setIsVisible(!isVisible)} className={`main-btn-style date-filter-btn ${(appliedStartDate || appliedEndDate) && 'filter-btn-active'}`}>
                 Filter Dates
             </button>
             {isVisible && (
@@ -89,7 +89,7 @@ const DateRangePicker = ({ onDateRangeSelected }) => {
                         onChange={(e) => setEndDate(e.target.value)}
                         className='date-input'
                     />
-                                        <div className="filter-footer-btns">
+                    <div className="filter-footer-btns">
                         <button className="apply-filter-btn" onClick={onClear}>Clear</button>
                         <button className='apply-filter-btn' onClick={handleApply}>Apply</button>
                     </div>

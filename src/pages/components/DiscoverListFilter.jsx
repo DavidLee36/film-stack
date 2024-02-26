@@ -77,7 +77,7 @@ const DiscoverListFilter = ({ setDefaultInMain }) => {
     };
 
     return (
-        <div className="filter-container">
+        <>
             <div className="dropdown">
                 <button className="discover-dropbtn main-btn-style" onClick={handlediscoversClick}>Discover</button>
                 <div className="discover-dropdown dropdown-content">
@@ -86,7 +86,7 @@ const DiscoverListFilter = ({ setDefaultInMain }) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

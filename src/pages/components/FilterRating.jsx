@@ -105,8 +105,8 @@ const FilterRating = ({ onRatingSelected }) => {
     }
 
     return (
-        <div>
-            <button onClick={toggleDropdown} className='main-btn-style rating-filter-btn'>
+        <div className='filter-wrapper'>
+            <button onClick={toggleDropdown} className={`main-btn-style rating-filter-btn ${(appliedOutOfFive > 0) && 'filter-btn-active'}`}>
                 Filter Rating
             </button>
             {isVisible && (

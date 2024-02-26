@@ -3,28 +3,22 @@ import '../../styles/FilterStyles.css';
 import GenreData from '../../utilities/GenreData.json';
 
 const GenreFilter = ({ setGenreInMain }) => {
-    const [chosenGenres, setChosenGenre] = useState(['Genres']);
+    const [chosenGenres, setChosenGenre] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
         const handleEscapeKey = (e) => {
             if (e.key === 'Escape') {
-                const genreDropdown = document.querySelector('.genre-dropdown');
-                if (genreDropdown) {
-                    genreDropdown.classList.remove('showdoesntfuckingwork');
-                }
+                setIsVisible(false);
             }
         };
 
         const handleWindowClick = (e) => {
-            if(!e.target.classList.contains('genre-dropbtn') &&
-            !e.target.classList.contains('genre-dropdown') &&
-            !e.target.classList.contains('genre-option')) {
-                const genreDropdown = document.querySelector('.genre-dropdown');
-                if (genreDropdown) {
-                    genreDropdown.classList.remove('showdoesntfuckingwork');
-                }
+            if (!e.target.classList.contains('genre-dropbtn') &&
+                !e.target.closest('.genre-dropdown')) {
+                setIsVisible(false);
             }
-        }
+        };
 
         // Add event listener
         window.addEventListener('keydown', handleEscapeKey);
@@ -37,40 +31,42 @@ const GenreFilter = ({ setGenreInMain }) => {
         };
     }, []);
 
-    const handleGenreClick = () => {
-        const genreDropdown = document.querySelector('.genre-dropdown');
-        genreDropdown.classList.toggle('showdoesntfuckingwork');
+    const handleSelectGenre = (genre) => {
+        const isSelected = chosenGenres.includes(genre);
+        setChosenGenre(prevGenres =>
+            isSelected
+                ? prevGenres.filter(g => g !== genre)
+                : [...prevGenres, genre]
+        );
     };
 
-    const handleSelectGenre = (e) => {
-        e.target.classList.toggle('selected');
-        const btn = document.querySelector('.genre-dropbtn');
-        const options = document.querySelectorAll('.genre-option');
-        let genres = [];
-        options.forEach((option) => {
-            if (option.classList.contains('selected')) {
-                genres.push(option.innerHTML);
-            }
-        });
-        if(genres.length > 0) {
-            btn.classList.add('filter-btn-active');
-        }else {
-            btn.classList.remove('filter-btn-active');
-        }
-        setChosenGenre(genres);
-        setGenreInMain(genres);
+    useEffect(() => {
+        console.log('stinky')
+        setGenreInMain(chosenGenres);
+    }, [chosenGenres]);
+
+    const toggleDropdown = (e) => {
+        e.stopPropagation();
+        setIsVisible(!isVisible);
     };
+
+    // Dynamically assign button class based on if any genres are chosen
+    const buttonClass = `genre-dropbtn main-btn-style ${chosenGenres.length > 0 ? 'filter-btn-active' : ''}`;
 
     return (
-        <div className="filter-container">
-            <div className="dropdown">
-                <button className="genre-dropbtn main-btn-style" onClick={handleGenreClick}>Filter Genres</button>
+        <div className="filter-wrapper">
+            <button className={buttonClass} onClick={toggleDropdown}>Filter Genres</button>
+            {isVisible && (
                 <div className="dropdown-content genre-dropdown">
                     {GenreData.map(genre => (
-                        <li key={genre.id} className='genre-option' onClick={handleSelectGenre}>{genre.genre_name}</li>
+                        <li key={genre.id} 
+                            className={`genre-option ${chosenGenres.includes(genre.genre_name) ? 'selected' : ''}`} 
+                            onClick={() => handleSelectGenre(genre.genre_name)}>
+                            {genre.genre_name}
+                        </li>
                     ))}
                 </div>
-            </div>
+            )}
         </div>
     );
 };
