@@ -55,14 +55,16 @@ const Modal = ({ movie, onClose }) => {
                 <div className="image-container">
                     {movie.backdrop_path !== null ?
                         <img src={`${BASE_IMG_URL}${movie.backdrop_path}`} alt="image not found" className='modal-backdrop' /> :
-                        <img src={`${BASE_IMG_URL}${movie.poster_path}`} alt="image not found" className='modal-backdrop' />
+                        <img src={`${BASE_IMG_URL}${movie.poster_path}`} alt="image not found" className='modal-poster' />
                     }
                 </div>
                 <div className='title-container'>
                     <h1 id='modal-title'>{movie.title}</h1>
                 </div>
                 <div className="modal-fav-container">
-                    <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='fav-star' onClick={changeFavStatus}/>
+                    <h3>
+                        <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='modal-fav-star' onClick={changeFavStatus}/>
+                    </h3>
                 </div>
                 <div className='overview-container'>
                     <p id="modal-overview">{movie.overview}</p>
