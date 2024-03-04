@@ -21,7 +21,6 @@ const HomePage = () => {
     const [resultsFor, setResultsFor] = useState('Top Rated');
     const [isLoading, setIsLoading] = useState(false);
     const [resetCurrPage, setResetCurrPage] = useState(false);
-    const [showSideFilters, setShowSideFilters] = useState(false);
     const sidePanelRef = useRef(null);
 
 
