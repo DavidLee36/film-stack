@@ -6,6 +6,26 @@ import ProviderData from '../../utilities/ProviderData.json'
 const Providers = ({ movieID }) => {
     const [providers, setProviders] = useState([]);
     const [allProvidersLink, setAllProvidersLink] = useState("");
+    const [btnText, setBtnText] = useState('View all providers');
+
+
+    useEffect(() => {
+        // Define the function to update the state based on screen width
+        const updateTextBasedOnScreenWidth = () => {
+          if (window.matchMedia("(max-width: 60em)").matches) {
+            setBtnText("View more"); // Screen width is below 60em
+          } else {
+            setBtnText("View all providers"); // Screen width is above 60em
+          }
+        };
+    
+        // Call the function initially and whenever the screen size changes
+        updateTextBasedOnScreenWidth();
+        window.addEventListener('resize', updateTextBasedOnScreenWidth);
+    
+        // Cleanup function to remove the event listener
+        return () => window.removeEventListener('resize', updateTextBasedOnScreenWidth);
+      }, []);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -45,7 +65,7 @@ const Providers = ({ movieID }) => {
                 )}
             </div>
             {providers.length !== 0 &&
-                <button onClick={viewAllProviders} className='main-btn-style'>View full list of providers</button>
+                <button onClick={viewAllProviders} className='main-btn-style'>{btnText}</button>
             }
         </div>
     )
