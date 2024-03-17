@@ -19,6 +19,8 @@ const Modal = ({ movie, onClose }) => {
 
     const handleEscape = (e) => {
         if(e.key === 'Escape') {
+
+            //If on favorites page, refresh
             if(window.location.pathname.includes('/favorites')) {
                 navigate('/favorites');
             }
@@ -66,6 +68,9 @@ const Modal = ({ movie, onClose }) => {
                         <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='modal-fav-star' onClick={changeFavStatus}/>
                     </h3>
                 </div>
+                <button className="modal-exit-btn" onClick={onClose}>
+                    X
+                </button>
                 <div className='overview-container'>
                     <p id="modal-overview">{movie.overview}</p>
                 </div>

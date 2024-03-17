@@ -131,6 +131,11 @@ const MovieInfo = () => {
                     </div>
                 </div>
 
+                <div className="info-cast-container info-card">
+                    <h1>Top Billed Cast:</h1>
+                    <CastSlider movieID={movie.id} />
+                </div>
+
                 <div className="info-card info-providers-container">
                     <Providers movieID={movie.id} />
                 </div>
@@ -173,10 +178,7 @@ const MovieInfo = () => {
                     </div>
                 </div>
 
-                <div className="info-cast-container info-card">
-                    <h1>Top Billed Cast:</h1>
-                    <CastSlider movieID={movie.id} />
-                </div>
+                
 
             </div>
         </div>
