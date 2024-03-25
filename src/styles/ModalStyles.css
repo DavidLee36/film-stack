@@ -266,11 +266,7 @@
     }
 
     .modal-provider-container img {
-        width: 12%;
-    }
-
-    .modal-provider-container .providers-list {
-        justify-content: space-between;
+        width: 8%;
     }
 
     .modal-provider-container h2 {
@@ -294,6 +290,12 @@
 
     .title-container {
         grid-column: 2/6;
+    }
+}
+
+@media(max-width: 25em) {
+    .modal-provider-container img {
+        width: 12%;
     }
 }
 

@@ -356,6 +356,12 @@
     .info-fav-container {
         flex-direction: column-reverse;
         padding-top: 1rem;
+        justify-content: start;
+    }
+
+    .fav-star {
+        font-size: 2.5rem;
+        align-self: end;
     }
 }
 
