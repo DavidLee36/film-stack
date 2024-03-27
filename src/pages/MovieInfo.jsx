@@ -105,10 +105,8 @@ const MovieInfo = () => {
                 <div className="info-header-logo-container logo" onClick={handleLogoClick}>
                     <img src={logo} alt="Film Stack" />
                 </div>
-                <div className="info-header-view-fav">
-                    <ViewFavBtn/>
-                </div>
                 <div className="info-fav-container">
+                        <ViewFavBtn/>
                         <FontAwesomeIcon icon={favorited ? solidStar : regularStar} className='fav-star' onClick={changeFavStatus}/>
                 </div>
             </div>
@@ -129,6 +127,14 @@ const MovieInfo = () => {
                             <Rating voteAverage={movie.vote_average} voteCount={movie.vote_count} />
                         </div>
                     </div>
+                </div>
+
+                {/* Poster to show up once the screen is too small to support the one in the heading */}
+                {movie.id && <img src={`${BASE_IMG_URL}${movie.poster_path}`} alt="image not found" className='secondary-img' />}
+
+                <div className="info-cast-container info-card">
+                    <h1>Top Billed Cast:</h1>
+                    <CastSlider movieID={movie.id} />
                 </div>
 
                 <div className="info-card info-providers-container">
@@ -172,15 +178,8 @@ const MovieInfo = () => {
                         {movie.status ? (<h3>{movie.status}</h3>) : (<h3>unkown</h3>)}
                     </div>
                 </div>
-
-                <div className="info-cast-container info-card">
-                    <h1>Top Billed Cast:</h1>
-                    <CastSlider movieID={movie.id} />
-                </div>
-
             </div>
         </div>
-
     );
 };
 
