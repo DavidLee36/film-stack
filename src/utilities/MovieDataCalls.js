@@ -37,7 +37,7 @@ const getMoviesByParam = async(param) => {
 };
 
 const searchMovies = async(search) => {
-    const url = `${BASE_URL}search/movie?query=${search}&include_adult=true&language=en-US&page=`;
+    const url = `${BASE_URL}search/movie?query=${search}&include_adult=false&language=en-US&page=`;
 
     const movies = getMultiplePages(url)
     return(movies);
