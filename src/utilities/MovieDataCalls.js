@@ -62,7 +62,7 @@ const getSingularMovie = async(id) => {
 
 //Tradiotanl method not working for some reason so call directly with api key
 const getMovieCredits = async (id) => {
-    const url = `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`;
+    const url = `${BASE_URL}movie/${id}/credits?api_key=${API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
     const cast = data.cast; //return just the cast of the movie
